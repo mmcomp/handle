@@ -556,7 +556,7 @@ $user = Auth::user();
                         @endif
                         >
                             <a href="/statistics_protocol_type">
-                                <i class="fa fa-file-contract"></i> <span>انواع قرارداد</span> 
+                                <i class="fa fa-certificate"></i> <span>انواع قرارداد</span> 
                             </a>
                         </li>
                         <li
@@ -566,6 +566,162 @@ $user = Auth::user();
                         >
                             <a href="/statistics_certificate_type">
                                 <i class="fa fa-certificate"></i> <span>انواع مدرک شناسایی</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='statistics_province')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/statistics_province">
+                                <i class="fa fa-certificate"></i> <span>استان</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='statistics_city')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/statistics_city">
+                                <i class="fa fa-certificate"></i> <span>شهر</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='statistics_Education')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/statistics_Education">
+                                <i class="fa fa-certificate"></i> <span>تحصیلات</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='statistics_FormalityStatus')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/statistics_FormalityStatus">
+                                <i class="fa fa-certificate"></i> <span>وضعیت تشریفات</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='statistics_FormalityType')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/statistics_FormalityType">
+                                <i class="fa fa-certificate"></i> <span>نوع تشریفات</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='statistics_GiveWay')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/statistics_GiveWay">
+                                <i class="fa fa-certificate"></i> <span>روش واگذاری</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='statistics_Ownership')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/statistics_Ownership">
+                                <i class="fa fa-certificate"></i> <span>نوع شرکت</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='statistics_Service')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/statistics_Service">
+                                <i class="fa fa-certificate"></i> <span>خدمات</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='statistics_ServicesDesc')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/statistics_ServicesDesc">
+                                <i class="fa fa-certificate"></i> <span>شرح خدمات</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='statistics_Transaction')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/statistics_Transaction">
+                                <i class="fa fa-certificate"></i> <span>نوع معامله</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='statistics_Unit')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/statistics_Unit">
+                                <i class="fa fa-certificate"></i> <span>واحدها</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='statistics_WinnerSelectWay')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/statistics_WinnerSelectWay">
+                                <i class="fa fa-certificate"></i> <span>نحوه تعیین برنده</span> 
+                            </a>
+                        </li>
+                    </ul>
+                  </li>
+                  <li class="treeview
+                  @if(strpos($current_url, 'report')===0)
+                   active
+                  @endif
+                  "
+                  >
+                    <a>
+                      <i class="fa fa-folder-open"></i> <span>گزارشات</span> 
+                    </a>
+                    <ul class="treeview-menu">
+                        <li
+                        @if($current_url=='report_compare')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/report_compare">
+                                <i class="fa fa-chart-line"></i> <span>گزارش مقایسه ای</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='report_compare')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/report_compare">
+                                <i class="fa fa-chart-line"></i> <span>گزارش لیست پیمانگاران</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='report_compare')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/report_compare">
+                                <i class="fa fa-chart-line"></i> <span>گزارش لیست قراردادها</span> 
+                            </a>
+                        </li>
+                        <li
+                        @if($current_url=='report_compare')
+                        class="active"
+                        @endif
+                        >
+                            <a href="/report_compare">
+                                <i class="fa fa-chart-line"></i> <span>گزارش لیست ضمانت نامه ها</span> 
                             </a>
                         </li>
                     </ul>

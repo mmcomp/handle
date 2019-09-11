@@ -33,6 +33,10 @@ Route::middleware('auth')->group(function () {
         Route::any('/edit/{id}', 'ProtocolDocController@edit');
     });
 
+    // Reports
+    Route::any('/report_compare', 'ReportCompareController@index');
+
+    // Statics
     Route::prefix('/statistics_protocol_type')->group(function () {
         Route::get('/', 'ProtocolTypeController@index');
         Route::get('/delete/{id}', 'ProtocolTypeController@delete');
@@ -45,6 +49,79 @@ Route::middleware('auth')->group(function () {
         Route::any('/create', 'CertificateTypeController@create');
         Route::any('/edit/{id}', 'CertificateTypeController@edit');
     });
+    Route::prefix('/statistics_city')->group(function () {
+        Route::get('/', 'CityController@index');
+        Route::get('/delete/{id}', 'CityController@delete');
+        Route::any('/create', 'CityController@create');
+        Route::any('/edit/{id}', 'CityController@edit');
+    });
+    Route::prefix('/statistics_province')->group(function () {
+        Route::get('/', 'ProvinceController@index');
+        Route::get('/delete/{id}', 'ProvinceController@delete');
+        Route::any('/create', 'ProvinceController@create');
+        Route::any('/edit/{id}', 'ProvinceController@edit');
+    });
+    Route::prefix('/statistics_Education')->group(function () {
+        Route::get('/', 'StaticController@index');
+        Route::get('/delete/{id}', 'StaticController@delete');
+        Route::any('/create', 'StaticController@create');
+        Route::any('/edit/{id}', 'StaticController@edit');
+    });
+    Route::prefix('/statistics_FormalityStatus')->group(function () {
+        Route::get('/', 'StaticController@index');
+        Route::get('/delete/{id}', 'StaticController@delete');
+        Route::any('/create', 'StaticController@create');
+        Route::any('/edit/{id}', 'StaticController@edit');
+    });
+    Route::prefix('/statistics_FormalityType')->group(function () {
+        Route::get('/', 'StaticController@index');
+        Route::get('/delete/{id}', 'StaticController@delete');
+        Route::any('/create', 'StaticController@create');
+        Route::any('/edit/{id}', 'StaticController@edit');
+    });
+    Route::prefix('/statistics_GiveWay')->group(function () {
+        Route::get('/', 'StaticController@index');
+        Route::get('/delete/{id}', 'StaticController@delete');
+        Route::any('/create', 'StaticController@create');
+        Route::any('/edit/{id}', 'StaticController@edit');
+    });
+    Route::prefix('/statistics_Ownership')->group(function () {
+        Route::get('/', 'StaticController@index');
+        Route::get('/delete/{id}', 'StaticController@delete');
+        Route::any('/create', 'StaticController@create');
+        Route::any('/edit/{id}', 'StaticController@edit');
+    });
+    Route::prefix('/statistics_Service')->group(function () {
+        Route::get('/', 'StaticController@index');
+        Route::get('/delete/{id}', 'StaticController@delete');
+        Route::any('/create', 'StaticController@create');
+        Route::any('/edit/{id}', 'StaticController@edit');
+    });
+    Route::prefix('/statistics_ServicesDesc')->group(function () {
+        Route::get('/', 'StaticController@index');
+        Route::get('/delete/{id}', 'StaticController@delete');
+        Route::any('/create', 'StaticController@create');
+        Route::any('/edit/{id}', 'StaticController@edit');
+    });
+    Route::prefix('/statistics_Transaction')->group(function () {
+        Route::get('/', 'StaticController@index');
+        Route::get('/delete/{id}', 'StaticController@delete');
+        Route::any('/create', 'StaticController@create');
+        Route::any('/edit/{id}', 'StaticController@edit');
+    });
+    Route::prefix('/statistics_Unit')->group(function () {
+        Route::get('/', 'StaticController@index');
+        Route::get('/delete/{id}', 'StaticController@delete');
+        Route::any('/create', 'StaticController@create');
+        Route::any('/edit/{id}', 'StaticController@edit');
+    });
+    Route::prefix('/statistics_WinnerSelectWay')->group(function () {
+        Route::get('/', 'StaticController@index');
+        Route::get('/delete/{id}', 'StaticController@delete');
+        Route::any('/create', 'StaticController@create');
+        Route::any('/edit/{id}', 'StaticController@edit');
+    });
+
     /*
     Route::get('/help', 'RequestController@helpMain');
     Route::get('/help/{page}', 'RequestController@helpPage');
