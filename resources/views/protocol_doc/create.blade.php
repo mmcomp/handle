@@ -36,6 +36,18 @@
                                         <label for="name">فایل</label>
                                         <input type="file" class="form-control" id="file_path" name="file_path" >
                                     </div>
+                                    <div class="form-group">
+                                        <label for="name">نوع ضمانت نامه</label>
+                                        <input type="text" class="form-control" id="warranty_type" name="warranty_type" placeholder="نوع" value="{{ ($protocolDoc && $protocolDoc->warranty_type)?$protocolDoc->warranty_type:'' }}">
+                                    </div> 
+                                    <div class="form-group">
+                                        <label for="name">شماره ضمانت نامه</label>
+                                        <input type="text" class="form-control" id="warranty_number" name="warranty_number" placeholder="شماره" value="{{ ($protocolDoc && $protocolDoc->warranty_number)?$protocolDoc->warranty_number:'' }}">
+                                    </div> 
+                                    <div class="form-group">
+                                        <label for="name">مبلغ ضمانت نامه</label>
+                                        <input type="text" class="form-control" id="warranty_amount" name="warranty_amount" placeholder="مبلغ" value="{{ ($protocolDoc && $protocolDoc->warranty_amount)?$protocolDoc->warranty_amount:'' }}">
+                                    </div> 
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12">
                                     <div class="form-group">
@@ -45,6 +57,10 @@
                                     <div class="form-group">
                                         <label for="expire_date">تاریخ انقضا</label>
                                         <input type="text" class="form-control pdate" id="expire_date" name="expire_date" placeholder="تاریخ انقضا" value="{{ ($protocolDoc && $protocolDoc->expire_date)?$protocolDoc->expire_date:'' }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">بانک ضمانت نامه</label>
+                                        <input type="text" class="form-control" id="warranty_bank" name="warranty_bank" placeholder="بانک" value="{{ ($protocolDoc && $protocolDoc->warranty_bank)?$protocolDoc->warranty_bank:'' }}">
                                     </div>                              
                                 </div>
                                 <div class="col-xs-12">

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Morilog\Jalali\CalendarUtils;
 
 class Protocol extends Model
 {
@@ -37,7 +38,7 @@ class Protocol extends Model
         return self::e2p($dateTmp[0] . '/' . self::twoDigit($dateTmp[1]) . '/' . self::twoDigit($dateTmp[2]));
     }
 
-    public function getStartAttribute($value) {
+    public function getStartDateAttribute($value) {
         if($value) {
             return self::g2j($value);
         }else {
@@ -45,7 +46,7 @@ class Protocol extends Model
         }
     }
 
-    public function getEndAttribute($value) {
+    public function getEndDateAttribute($value) {
         if($value) {
             return self::g2j($value);
         }else {
@@ -53,7 +54,15 @@ class Protocol extends Model
         }
     }
 
-    public function getRegisterAttribute($value) {
+    public function getRegisterDateAttribute($value) {
+        if($value) {
+            return self::g2j($value);
+        }else {
+            return $value;
+        }
+    }
+
+    public function getNotifyDateAttribute($value) {
         if($value) {
             return self::g2j($value);
         }else {
@@ -75,6 +84,22 @@ class Protocol extends Model
         }else {
             return $value;
         }
+    }
+
+    public function service() {
+        return $this->belongsTo('App\Service', 'services_id');
+    }
+
+    public function service_desc() {
+        return $this->belongsTo('App\ServicesDesc', 'services_descs_id');
+    }
+
+    public function giving_unit() {
+        return $this->belongsTo('App\Unit', 'giving_units_id');
+    }
+
+    public function winner_select_way() {
+        return $this->belongsTo('App\WinnerSelectWay', 'winner_select_ways_id');
     }
 
     public function employer_agent() {

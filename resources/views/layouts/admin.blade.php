@@ -698,29 +698,29 @@ $user = Auth::user();
                             </a>
                         </li>
                         <li
-                        @if($current_url=='report_compare')
+                        @if($current_url=='report_company')
                         class="active"
                         @endif
                         >
-                            <a href="/report_compare">
+                            <a href="/report_company">
                                 <i class="fa fa-chart-line"></i> <span>گزارش لیست پیمانگاران</span> 
                             </a>
                         </li>
                         <li
-                        @if($current_url=='report_compare')
+                        @if($current_url=='report_protocol')
                         class="active"
                         @endif
                         >
-                            <a href="/report_compare">
+                            <a href="/report_protocol">
                                 <i class="fa fa-chart-line"></i> <span>گزارش لیست قراردادها</span> 
                             </a>
                         </li>
                         <li
-                        @if($current_url=='report_compare')
+                        @if($current_url=='report_warranty')
                         class="active"
                         @endif
                         >
-                            <a href="/report_compare">
+                            <a href="/report_warranty">
                                 <i class="fa fa-chart-line"></i> <span>گزارش لیست ضمانت نامه ها</span> 
                             </a>
                         </li>
@@ -982,7 +982,7 @@ $user = Auth::user();
 
         @yield('content')
 
-        <footer class="main-footer">
+        <footer class="main-footer" style="padding-right: 100px !important;">
             <!-- <div class="pull-left hidden-xs">
                 <b>Version</b> 2.2.0
             </div> -->

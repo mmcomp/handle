@@ -35,7 +35,15 @@ Route::middleware('auth')->group(function () {
 
     // Reports
     Route::any('/report_compare', 'ReportCompareController@index');
-
+    Route::prefix('/report_company')->group(function () {
+        Route::any('/', 'ReportCompanyController@index');
+    });
+    Route::prefix('/report_protocol')->group(function () {
+        Route::any('/', 'ReportProtocolController@index');
+    });
+    Route::prefix('/report_warranty')->group(function () {
+        Route::any('/', 'ReportProtocolController@indexWarranty');
+    });
     // Statics
     Route::prefix('/statistics_protocol_type')->group(function () {
         Route::get('/', 'ProtocolTypeController@index');

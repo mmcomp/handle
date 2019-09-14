@@ -45,4 +45,8 @@ class ProtocolDoc extends Model
             return $value;
         }
     }
+
+    public function protocol() {
+        return $this->belongsTo('App\Protocol', 'protocols_id');
+    }
 }

@@ -58,6 +58,10 @@ class ProtocolDocController extends Controller
             return redirect('/protocoldoc/' . $id);
         }
         $protocolDoc->description = $request->input('description');
+        $protocolDoc->warranty_type = $request->input('warranty_type');
+        $protocolDoc->warranty_number = $request->input('warranty_number');
+        $protocolDoc->warranty_bank = $request->input('warranty_bank');
+        $protocolDoc->warranty_amount = $request->input('warranty_amount');
         $protocolDoc->protocols_id = $id;
         $file = $request->file_path->store('docs');
         $protocolDoc->file_path = $file;
@@ -86,6 +90,10 @@ class ProtocolDocController extends Controller
 
 
         $protocolDoc->description = $request->input('description');
+        $protocolDoc->warranty_type = $request->input('warranty_type');
+        $protocolDoc->warranty_number = $request->input('warranty_number');
+        $protocolDoc->warranty_bank = $request->input('warranty_bank');
+        $protocolDoc->warranty_amount = $request->input('warranty_amount');
         if($request->file_path) {
             $file = $request->file_path->store('docs');
             $protocolDoc->file_path = $file;

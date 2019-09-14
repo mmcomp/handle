@@ -21,4 +21,8 @@ class Company extends Model
     public function ownership() {
         return $this->belongsTo('App\Ownership', 'ownerships_id');
     }
+
+    public function protocols() {
+        return $this->hasMany('App\Protocol', 'contractor_company_id', 'id');
+    }
 }
