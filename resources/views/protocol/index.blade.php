@@ -97,13 +97,22 @@
                             @foreach($protocols as $i=>$protocol)
                               <tr>
                                 <td>{{ $i + 1 }}</td>
-                                <td>{{ $protocol->type->name }}</td>
+                                <td>{{ ($protocol->type)?$protocol->type->name:'' }}</td>
                                 <td>{{ $protocol->title }}</td>
-                                <td>{{ $protocol->contractor->name }}</td>
+                                <td>{{ ($protocol->contractor)?$protocol->contractor->name:'' }}</td>
                                 <td>
-                                  <a target="_blank" class="btn btn-primary" href="/protocoldoc/{{ $protocol->id }}" title="مدارک">
-                                    <i class="fas fa-passport"></i>
+                                  <a class="btn btn-primary" href="/protocols/edit/{{ $protocol->id }}" title="ویرایش">
+                                    <i class="fas fa-pen"></i>
+                                    ویرایش
                                   </a>
+                                  <a class="btn btn-primary" href="/protocoldoc/{{ $protocol->id }}" title="مدارک">
+                                    <i class="fas fa-passport"></i>
+                                    مستندات
+                                  </a>
+                                  <!-- <a class="btn btn-primary" href="/protocols/complement/{{ $protocol->id }}" title="مدارک">
+                                    <i class="fas fa-file-medical"></i>
+                                    متمم
+                                  </a> -->
                                 </td>
                               </tr>
                             @endforeach

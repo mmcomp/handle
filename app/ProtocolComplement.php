@@ -5,8 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Morilog\Jalali\CalendarUtils;
 
-class Protocol extends Model
+class ProtocolComplement extends Model
 {
+    protected $table = "protocol_complements";
+
     public static function e2p($inp) {
         $out = str_replace('0', '۰', $inp);
         $out = str_replace('1', '۱', $out);
@@ -54,14 +56,6 @@ class Protocol extends Model
         }
     }
 
-    public function getRegisterDateAttribute($value) {
-        if($value) {
-            return self::g2j($value);
-        }else {
-            return $value;
-        }
-    }
-
     public function getNotifyDateAttribute($value) {
         if($value) {
             return self::g2j($value);
@@ -84,57 +78,5 @@ class Protocol extends Model
         }else {
             return $value;
         }
-    }
-
-    public function getAllAttributes() {
-        return \Schema::getColumnListing('protocols');
-    }
-
-    public function service() {
-        return $this->belongsTo('App\Service', 'services_id');
-    }
-
-    public function service_desc() {
-        return $this->belongsTo('App\ServicesDesc', 'services_descs_id');
-    }
-
-    public function giving_unit() {
-        return $this->belongsTo('App\Unit', 'giving_units_id');
-    }
-
-    public function winner_select_way() {
-        return $this->belongsTo('App\WinnerSelectWay', 'winner_select_ways_id');
-    }
-
-    public function employer_agent() {
-        return $this->belongsTo('App\Agent', 'employer_id');
-    }
-
-    public function contractor_agent() {
-        return $this->belongsTo('App\Agent', 'contractor_id');
-    }
-
-    public function employer() {
-        return $this->belongsTo('App\Company', 'employer_company_id');
-    }
-
-    public function contractor() {
-        return $this->belongsTo('App\Company', 'contractor_company_id');
-    }
-
-    public function docs() {
-        return $this->hasMany('App\ProtocolDoc', 'protocols_id');
-    }
-
-    public function type() {
-        return $this->belongsTo('App\ProtocolType', 'protocol_types_id');
-    }
-
-    public function complements() {
-        return $this->hasMany('App\ProtocolComplement', 'protocols_id');
-    }
-
-    public function list_simples() {
-        return $this->hasMany('App\ProtocolListSimple', 'protocols_id');
     }
 }

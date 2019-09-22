@@ -43,6 +43,7 @@ class ProtocolTypeController extends Controller
 
         $protocolType->name = $request->input('name');
         $protocolType->description = $request->input('description');
+        $protocolType->calc_type = $request->input('calc_type');
 
         $protocolType->save();
         
@@ -65,6 +66,7 @@ class ProtocolTypeController extends Controller
 
         $protocolType->name = $request->input('name');
         $protocolType->description = $request->input('description');
+        $protocolType->calc_type = $request->input('calc_type');
 
         $protocolType->save();
 

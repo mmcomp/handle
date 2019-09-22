@@ -36,6 +36,17 @@
                                         <label for="name">نام</label>
                                         <input type="text" class="form-control" id="name" name="name" placeholder="نام" value="{{ ($protocol_type && $protocol_type->name)?$protocol_type->name:'' }}">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="name">نحوه محاسبه</label>
+                                        <select class="form-control" id="calc_type" name="calc_type" >
+                                            <option value="simple">حجمی</option>
+                                            @if($protocol_type && $protocol_type->calc_type=='list_simple')
+                                            <option value="list_simple" selected>آشپزخانه</option>
+                                            @else
+                                            <option value="list_simple">آشپزخانه</option>
+                                            @endif
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12">
                                     <div class="form-group">

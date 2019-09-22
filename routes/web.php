@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/delete/{id}', 'ProtocolController@delete');
         Route::any('/create', 'ProtocolController@create');
         Route::any('/edit/{id}', 'ProtocolController@edit');
+        Route::any('/complement/{id}', 'ProtocolController@complement');
         Route::get('/company/select/{company_id}', 'CompanyController@select');
         Route::get('/company/edit/{company_id}', 'CompanyController@edit');
         Route::post('/company', 'CompanyController@create');

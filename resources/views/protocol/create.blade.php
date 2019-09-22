@@ -25,21 +25,16 @@ $entities = [
                 <h3 class="box-title">قرارداد جدید</h3>
             </div><!-- /.box-header -->
             <div class="box-body">
-              <form method="post" id="main-form" enctype="multipart/form-data">
-                @csrf
                 <div class="nav-tabs-custom">
                   <ul class="nav nav-tabs pull-right">
-                    @if(!$companyAdd)
-                    <li class="active"><a href="#tab_1-1" data-toggle="tab" aria-expanded="false">مشخصات قرارداد</a></li>
-                    <li class=""><a href="#tab_2-2" data-toggle="tab" aria-expanded="false">انتخاب پیمانکار</a></li>
-                    @else
-                    <li class=""><a href="#tab_1-1" data-toggle="tab" aria-expanded="false">مشخصات قرارداد</a></li>
                     <li class="active"><a href="#tab_2-2" data-toggle="tab" aria-expanded="false">انتخاب پیمانکار</a></li>
-                    @endif
+                    <li class=""><a href="#tab_1-1" data-toggle="tab" aria-expanded="false">مشخصات قرارداد</a></li>
                     <li class=""><a href="#tab_3-2" data-toggle="tab" aria-expanded="true">تاریخ ها</a></li>
-                    <li class=""><a href="#tab_4-2" data-toggle="tab" aria-expanded="true">مبلغ قرارداد و شرایط</a></li>
+                    <li class=""><a id="payment-tab" href="#tab_simple" data-toggle="tab" aria-expanded="true">مبلغ قرارداد و شرایط</a></li>
                     <li class=""><a href="#tab_7-2" data-toggle="tab" aria-expanded="true">مستندات</a></li>
-                    <!-- <li class=""><a href="#tab_9-2" data-toggle="tab" aria-expanded="true">کاردکس مالی</a></li> -->
+                    @if(isset($data['complements']))
+                    <li class=""><a href="#tab_9-2" data-toggle="tab" aria-expanded="true">متمم</a></li>
+                    @endif
                     <!-- <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         Dropdown <span class="caret"></span>
@@ -54,208 +49,10 @@ $entities = [
                     </li> -->
                     <li class="pull-left header"> مشخصات قرارداد<i class="fa fa-th"></i></li>
                   </ul>
+                  <form method="post" id="main-form" enctype="multipart/form-data">
+                  @csrf
                   <div class="tab-content">
-                    <div class="tab-pane
-                    @if(!$companyAdd)
-                     active
-                    @endif" id="tab_1-1">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label>
-                          شماره قرارداد(شماره دبیرخانه) : 
-                          </label>
-                          <input name="number" class="form-control" placeholder="شماره" />
-                        </div>
-                        <div class="col-md-6">
-                          <label>
-                          نوع خدمت : 
-                          </label>
-                          <select name="services_id" class="form-control" >
-                            <option value="0"></option>
-                            @foreach($services as $service)
-                            <option value="{{ $service->id }}">{{ $service->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <label>
-                          عنوان قرارداد : 
-                          </label>
-                          <input name="title" class="form-control" placeholder="عنوان" />
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label>
-                          شرح خدمت : 
-                          </label>
-                          <select name="services_descs_id" class="form-control" >
-                            <option value="0"></option>
-                            @foreach($services_descs as $service)
-                            <option value="{{ $service->id }}">{{ $service->name }}</option>
-                            @endforeach
-                          </select>                        
-                        </div>
-                        <div class="col-md-6">
-                          <label>
-                          واحد واگذار کننده : 
-                          </label>
-                          <select name="giving_units_id" class="form-control" >
-                            <option value="0"></option>
-                            @foreach($units as $unit)
-                            <option value="{{ $unit->id }}">{{ $unit->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label>
-                          محل ارائه خدمت : 
-                          </label>
-                          <input name="service_location" class="form-control" placeholder="محل" />
-                        </div>
-                        <div class="col-md-6">
-                          <label>
-                          روش واگذاری : 
-                          </label>
-                          <select name="give_ways_id" class="form-control" >
-                            <option value="0"></option>
-                            @foreach($give_ways as $gw)
-                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label>
-                          شهر محل خدمت : 
-                          </label>
-                          <select name="cities_id" class="form-control" >
-                            <option value="0"></option>
-                            @foreach($cities as $gw)
-                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                        <div class="col-md-6">
-                          <label>
-                          نوع معامله : 
-                          </label>
-                          <select name="transactions_id" class="form-control" >
-                            <option value="0"></option>
-                            @foreach($transactions as $gw)
-                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label>
-                          نحوه تعیین برنده : 
-                          </label>
-                          <select name="winner_select_ways_id" class="form-control" >
-                            <option value="0"></option>
-                            @foreach($winner_select_ways as $gw)
-                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                        <div class="col-md-6">
-                          <label>
-                          کارفرما : 
-                          </label>
-                          <select name="employer_company_id" class="form-control" >
-                            <option value="0"></option>
-                            @foreach($companies as $gw)
-                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label>
-                          نماینده کافرما : 
-                          </label>
-                          <input name="employer_agent" class="form-control" placeholder="عنوان" />
-                        </div>
-                        <div class="col-md-6">
-                          <label>
-                          ماهیت قرارداد : 
-                          </label>
-                          <select name="protocol_types_id" class="form-control" >
-                            <option value="0"></option>
-                            @foreach($protocol_types as $gw)
-                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label>
-                          وضعیت تشریفات: 
-                          </label>
-                          <select name="formality_statuses_id" class="form-control" >
-                            <option value="0"></option>
-                            @foreach($formality_statuses as $gw)
-                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                        <div class="col-md-6">
-                          <label>
-                          نوع تشریفات : 
-                          </label>
-                          <select name="formality_types_id" class="form-control" >
-                            <option value="0"></option>
-                            @foreach($formality_types as $gw)
-                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label>
-                          تاریخ صورتجلسه کمیسیون معاملات (استعلام - مناقصه -مزایده): 
-                          </label>
-                          <input name="register" class="form-control pdate" />
-                        </div>
-                        <div class="col-md-6">
-                          <label>
-                          متمم قرارداد: 
-                          </label>
-                          <select name="has_complement" class="form-control" >
-                            <option value="no">ندارد</option>
-                            <option value="yes">دارد</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label>
-                          واحد نظارت: 
-                          </label>
-                          <select name="superviser_units_id" class="form-control" >
-                            <option value="0"></option>
-                            @foreach($units as $unit)
-                            <option value="{{ $unit->id }}">{{ $unit->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- /.tab-pane -->
-                    <div class="tab-pane
-                    @if($companyAdd)
-                     active
-                    @endif" id="tab_2-2">
+                    <div class="tab-pane active" id="tab_2-2">
                       <input type="hidden" name="contractor_company_id" id="contractor_company_id" value="{{ isset($data['contractor_company_id'])?$data['contractor_company_id']:'0' }}" />
                       <div class="row">
                         <div class="col-md-6">
@@ -346,19 +143,253 @@ $entities = [
                       </table>
                     </div>
                     <!-- /.tab-pane -->
-                    <div class="tab-pane" id="tab_3-2">
+                    <div class="tab-pane" id="tab_1-1">
                       <div class="row">
                         <div class="col-md-6">
                           <label>
-                          شروع قرارداد
+                          شماره قرارداد(شماره دبیرخانه) : 
                           </label>
-                          <input name="start_date" class="form-control pdate" placeholder="شروع" />
+                          <input name="number" class="form-control" placeholder="شماره" value="{{ (isset($data['number'])?$data['number']:'') }}" />
                         </div>
                         <div class="col-md-6">
                           <label>
-                          پایان قرارداد
+                          نوع خدمت : 
                           </label>
-                          <input name="end_date" class="form-control pdate" placeholder="پایان" />
+                          <select name="services_id" class="form-control" >
+                            <option value="0"></option>
+                            @foreach($services as $service)
+                            @if(isset($data['services_id']) && $data['services_id']==$service->id)
+                            <option value="{{ $service->id }}" selected>{{ $service->name }}</option>
+                            @else
+                            <option value="{{ $service->id }}">{{ $service->name }}</option>
+                            @endif
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label>
+                          عنوان قرارداد : 
+                          </label>
+                          <input name="title" class="form-control" placeholder="عنوان" value="{{ (isset($data['title'])?$data['title']:'') }}" />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          شرح خدمت : 
+                          </label>
+                          <select name="services_descs_id" class="form-control" >
+                            <option value="0"></option>
+                            @foreach($services_descs as $service)
+                            @if(isset($data['services_descs_id']) && $data['services_descs_id']==$service->id)
+                            <option value="{{ $service->id }}" selected>{{ $service->name }}</option>
+                            @else
+                            <option value="{{ $service->id }}">{{ $service->name }}</option>
+                            @endif
+                            @endforeach
+                          </select>                        
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          واحد واگذار کننده : 
+                          </label>
+                          <select name="giving_units_id" class="form-control" >
+                            <option value="0"></option>
+                            @foreach($units as $unit)
+                            @if(isset($data['giving_units_id']) && $data['giving_units_id']==$unit->id)
+                            <option value="{{ $unit->id }}" selected>{{ $unit->name }}</option>
+                            @else
+                            <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                            @endif
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          محل ارائه خدمت : 
+                          </label>
+                          <input name="service_location" class="form-control" placeholder="محل" value="{{ (isset($data['service_location'])?$data['service_location']:'') }}" />
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          روش واگذاری : 
+                          </label>
+                          <select name="give_ways_id" class="form-control" >
+                            <option value="0"></option>
+                            @foreach($give_ways as $gw)
+                            @if(isset($data['give_ways_id']) && $data['give_ways_id']==$gw->id)
+                            <option value="{{ $gw->id }}" selected>{{ $gw->name }}</option>
+                            @else
+                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
+                            @endif
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          شهر محل خدمت : 
+                          </label>
+                          <select name="cities_id" class="form-control" >
+                            <option value="0"></option>
+                            @foreach($cities as $gw)
+                            @if(isset($data['cities_id']) && $data['cities_id']==$gw->id)
+                            <option value="{{ $gw->id }}" selected>{{ $gw->name }}</option>
+                            @else
+                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
+                            @endif
+                            @endforeach
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          نوع معامله : 
+                          </label>
+                          <select name="transactions_id" class="form-control" >
+                            <option value="0"></option>
+                            @foreach($transactions as $gw)
+                            @if(isset($data['transactions_id']) && $data['transactions_id']==$gw->id)
+                            <option value="{{ $gw->id }}" selected>{{ $gw->name }}</option>
+                            @else
+                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
+                            @endif
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          نحوه تعیین برنده : 
+                          </label>
+                          <select name="winner_select_ways_id" class="form-control" >
+                            <option value="0"></option>
+                            @foreach($winner_select_ways as $gw)
+                            @if(isset($data['winner_select_ways_id']) && $data['winner_select_ways_id']==$gw->id)
+                            <option value="{{ $gw->id }}" selected>{{ $gw->name }}</option>
+                            @else
+                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
+                            @endif
+                            @endforeach
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          کارفرما : 
+                          </label>
+                          <select name="employer_company_id" class="form-control" >
+                            <option value="0">دانشگاه علوم پزشکی مشهد</option>
+                            @foreach($companies as $gw)
+                            @if(isset($data['employer_company_id']) && $data['employer_company_id']==$gw->id)
+                            <option value="{{ $gw->id }}" selected>{{ $gw->name }}</option>
+                            @else
+                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
+                            @endif
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          نماینده کافرما : 
+                          </label>
+                          <input name="employer_agent" class="form-control" placeholder="عنوان" value="{{ (isset($data['employer_agent'])?$data['employer_agent']:'') }}" />
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          ماهیت قرارداد : 
+                          </label>
+                          <select id="protocol_types_id" name="protocol_types_id" class="form-control" onchange="protocolTypeChanged(this);" >
+                            <option value="0"></option>
+                            @foreach($protocol_types as $gw)
+                            @if(isset($data['protocol_types_id']) && $data['protocol_types_id']==$gw->id)
+                            <option value="{{ $gw->id }}" data-calc="{{ $gw->calc_type }}" selected>{{ $gw->name }}</option>
+                            @else
+                            <option value="{{ $gw->id }}" data-calc="{{ $gw->calc_type }}">{{ $gw->name }}</option>
+                            @endif
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          وضعیت تشریفات: 
+                          </label>
+                          <select name="formality_statuses_id" class="form-control" >
+                            <option value="0"></option>
+                            @foreach($formality_statuses as $gw)
+                            @if(isset($data['formality_statuses_id']) && $data['formality_statuses_id']==$gw->id)
+                            <option value="{{ $gw->id }}" selected>{{ $gw->name }}</option>
+                            @else
+                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
+                            @endif
+                            @endforeach
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          نوع تشریفات : 
+                          </label>
+                          <select name="formality_types_id" class="form-control" >
+                            <option value="0"></option>
+                            @foreach($formality_types as $gw)
+                            @if(isset($data['formality_types_id']) && $data['formality_types_id']==$gw->id)
+                            <option value="{{ $gw->id }}" selected>{{ $gw->name }}</option>
+                            @else
+                            <option value="{{ $gw->id }}">{{ $gw->name }}</option>
+                            @endif
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          تاریخ صورتجلسه کمیسیون معاملات (استعلام - مناقصه -مزایده): 
+                          </label>
+                          <input name="register" class="form-control pdate" value="{{ (isset($data['register'])?$data['register']:'') }}" />
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          واحد نظارت: 
+                          </label>
+                          <select name="superviser_units_id" class="form-control" >
+                            <option value="0"></option>
+                            @foreach($units as $unit)
+                            @if(isset($data['superviser_units_id']) && $data['superviser_units_id']==$unit->id)
+                            <option value="{{ $unit->id }}" selected>{{ $unit->name }}</option>
+                            @else
+                            <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                            @endif
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_3-2">
+                      @if(isset($data['complements']) && count($data['complements'])>0)
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          شروع
+                          قرارداد
+                          </label>
+                          <input name="start_date" class="form-control pdate" placeholder="شروع" value="{{ end($data['complements'])['start_date'] }}" />
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          پایان
+                          قرارداد
+                          </label>
+                          <input name="end_date" class="form-control pdate" placeholder="پایان" value="{{ end($data['complements'])['end_date'] }}" />
                         </div>
                       </div>
                       <div class="row">
@@ -366,32 +397,95 @@ $entities = [
                           <label>
                           تاریخ هشدار
                           </label>
-                          <input name="notify_date" class="form-control pdate" placeholder="هشدار" />
+                          <input name="notify_date" class="form-control pdate" placeholder="هشدار" value="{{ end($data['complements'])['notify_date'] }}" />
                         </div>
                       </div>
-                    </div>
-                    <!-- /.tab-pane -->
-                    <div class="tab-pane" id="tab_4-2">
+                      @for($i=count($data['complements'])-2;$i>=0;$i--)
                       <div class="row">
                         <div class="col-md-6">
                           <label>
-                          از تاریخ
+                          شروع
+                          قرارداد
                           </label>
-                          <input name="pay_from_date" class="form-control pdate" placeholder="از" />
+                          <input disabled class="form-control pdate" placeholder="شروع" value="{{ $data['complements'][$i]['start_date'] }}" />
                         </div>
                         <div class="col-md-6">
                           <label>
-                          تا تاریخ
+                          پایان
+                          قرارداد
                           </label>
-                          <input name="pay_to_date" class="form-control pdate" placeholder="تا" />
+                          <input disabled class="form-control pdate" placeholder="پایان" value="{{ $data['complements'][$i]['end_date'] }}" />
                         </div>
                       </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          تاریخ هشدار
+                          </label>
+                          <input disabled class="form-control pdate" placeholder="هشدار" value="{{ $data['complements'][$i]['notify_date'] }}" />
+                        </div>
+                      </div>
+                      @endfor
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          شروع
+                          قرارداد
+                          </label>
+                          <input disabled class="form-control pdate" placeholder="شروع" value="{{ (isset($data['start_date'])?$data['start_date']:'') }}" />
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          پایان
+                          قرارداد
+                          </label>
+                          <input disabled class="form-control pdate" placeholder="پایان" value="{{ (isset($data['end_date'])?$data['end_date']:'') }}" />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          تاریخ هشدار
+                          </label>
+                          <input disabled class="form-control pdate" placeholder="هشدار" value="{{ (isset($data['notify_date'])?$data['notify_date']:'') }}" />
+                        </div>
+                      </div>
+                      @else
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          شروع
+                          قرارداد
+                          </label>
+                          <input name="start_date" class="form-control pdate" placeholder="شروع" value="{{ (isset($data['start_date'])?$data['start_date']:'') }}" />
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          پایان
+                          قرارداد
+                          </label>
+                          <input name="end_date" class="form-control pdate" placeholder="پایان" value="{{ (isset($data['end_date'])?$data['end_date']:'') }}" />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          تاریخ هشدار
+                          </label>
+                          <input name="notify_date" class="form-control pdate" placeholder="هشدار" value="{{ (isset($data['notify_date'])?$data['notify_date']:'') }}" />
+                        </div>
+                      </div>
+                      @endif
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane payment" id="tab_simple">
+                      @if(isset($data['complements']) && count($data['complements'])>0)
                       <div class="row">
                         <div class="col-md-6">
                           <label>
                           مبلغ
                           </label>
-                          <input name="amount" class="form-control" placeholder="مبلغ" />
+                          <input name="total" class="form-control" placeholder="مبلغ" value="{{ end($data['complements'])['total'] }}" />
                         </div>
                         <div class="col-md-6">
                           <label>
@@ -404,6 +498,100 @@ $entities = [
                           </select>
                         </div>
                       </div>
+                      @for($i=count($data['complements'])-2;$i>=0;$i--)
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          مبلغ
+                          </label>
+                          <input disabled class="form-control" placeholder="مبلغ" value="{{ $data['complements'][$i]['total'] }}" />
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          واحد ارزی
+                          </label>
+                          <select disabled class="form-control">
+                            <option value="rial">ریال</option>
+                            <option value="dollar">دلار</option>
+                            <option value="euro">یورو</option>
+                          </select>
+                        </div>
+                      </div>
+                      @endfor
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          مبلغ
+                          </label>
+                          <input disabled class="form-control" placeholder="مبلغ" value="{{ (isset($data['total'])?$data['total']:'') }}" />
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          واحد ارزی
+                          </label>
+                          <select disabled class="form-control">
+                            <option value="rial">ریال</option>
+                            <option value="dollar">دلار</option>
+                            <option value="euro">یورو</option>
+                          </select>
+                        </div>
+                      </div>
+                      @else
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          مبلغ
+                          </label>
+                          <input name="total" class="form-control" placeholder="مبلغ" value="{{ (isset($data['total'])?$data['total']:'') }}" />
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          واحد ارزی
+                          </label>
+                          <select name="currency" class="form-control">
+                            <option value="rial">ریال</option>
+                            <option value="dollar">دلار</option>
+                            <option value="euro">یورو</option>
+                          </select>
+                        </div>
+                      </div>
+                      @endif
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane payment" id="tab_list_simple">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          نام
+                          </label>
+                          <input name="item_name[]" class="form-control" placeholder="نام" value="{{ (isset($data['list_simples'][0])?$data['list_simples'][0]['item_name']:'') }}" />
+                        </div>
+                        <div class="col-md-6">
+                          <a onclick="addItem();"><i class="fa fa-plus" style="float: left;margin-top: 5px;"></i></a>
+                          <label>
+                          مبلغ
+                          </label>
+                          <input name="item_price[]" class="form-control" placeholder="مبلغ" value="{{ (isset($data['list_simples'][0])?$data['list_simples'][0]['item_price']:'') }}" />
+                        </div>
+                      </div>
+                      @if(isset($data['list_simples']) && count($data['list_simples'])>1)
+                      @for($i=1;$i < count($data['list_simples']);$i++)
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>
+                          نام
+                          </label>
+                          <input name="item_name[]" class="form-control" placeholder="نام" value="{{ $data['list_simples'][$i]['item_name'] }}" />
+                        </div>
+                        <div class="col-md-6">
+                          <label>
+                          مبلغ
+                          </label>
+                          <input name="item_price[]" class="form-control" placeholder="مبلغ" value="{{ $data['list_simples'][$i]['item_price'] }}" />
+                        </div>
+                      </div>
+                      @endfor
+                      @endif
                     </div>
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_7-2">
@@ -437,13 +625,126 @@ $entities = [
                       </div>
                     </div>
                     <!-- /.tab-pane -->
-                    <!-- <div class="tab-pane" id="tab_9-2">
-                    </div> -->
+                    @if(isset($data['complements']))
+                    <div class="tab-pane" id="tab_9-2">
+                      <br/>
+                      <div class="box box-warning">
+                        <div class="box-header with-border">
+                          <h3 class="box-title">مبلغ</h3>
+                          <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                          </div>
+                          <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <label>
+                              مبلغ
+                              </label>
+                              <input name="com_total" class="form-control" placeholder="مبلغ" />
+                            </div>
+                            <div class="col-md-6">
+                              <label>
+                              واحد ارزی
+                              </label>
+                              <select name="com_currency" class="form-control">
+                                <option value="rial">ریال</option>
+                                <option value="dollar">دلار</option>
+                                <option value="euro">یورو</option>
+                              </select>
+                            </div>
+                          </div>                        
+                        </div>
+                        <!-- /.box-body -->
+                      </div>
+                      <div class="box box-warning">
+                        <div class="box-header with-border">
+                          <h3 class="box-title">تاریخ</h3>
+                          <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                          </div>
+                          <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <label>
+                              شروع
+                              </label>
+                              <input name="com_start_date" class="form-control pdate" placeholder="شروع" />
+                            </div>
+                            <div class="col-md-6">
+                              <label>
+                              پایان
+                              </label>
+                              <input name="com_end_date" class="form-control pdate" placeholder="پایان" />
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <label>
+                              تاریخ هشدار
+                              </label>
+                              <input name="com_notify_date" class="form-control pdate" placeholder="هشدار" />
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /.box-body -->
+                      </div>
+                      <div class="box box-warning">
+                        <div class="box-header with-border">
+                          <h3 class="box-title">مستندات</h3>
+                          <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                          </div>
+                          <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <label>
+                              فایل
+                              </label>
+                              <input type="file" name="com_file_path[]" class="form-control" multiple />
+                            </div>
+                            <div class="col-md-6">
+                              <label>
+                              توضیحات
+                              </label>
+                              <textarea name="com_description" class="form-control"></textarea>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <label>
+                              تاریخ انقضاء
+                              </label>
+                              <input name="com_expire_date" class="form-control pdate" placeholder="انقضاء"/>
+                            </div>
+                            <div class="col-md-6">
+                              <br/>
+                              <button class="btn btn-warning">
+                              ثبت متمم
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /.box-body -->
+                      </div>
+                    </div> 
                     <!-- /.tab-pane -->
+                    @endif
                   </div>
                   <!-- /.tab-content -->
+                  </form>
                 </div>
-              </form>
             </div>
           </div>
         </div>
@@ -676,6 +977,35 @@ $entities = [
     $("#company_edit_id").val(company_id);
     $("#main-form").submit();
   }
+  function protocolTypeChanged(dobj) {
+    console.log($(dobj).find('option:selected').data('calc'));
+    if($(dobj).find('option:selected').data('calc')) {
+      $("#payment-tab").prop('href', '#tab_' + $(dobj).find('option:selected').data('calc'));
+      $("div.payment").each(function (id, field) {
+        if(field.id!='tab_' + $(dobj).find('option:selected').data('calc')) {
+          $(field).find('input, select').prop('disabled', true);
+        }
+      });
+    }
+  }
+  function addItem() {
+    $("#tab_list_simple").append(`
+    <div class="row">
+      <div class="col-md-6">
+        <label>
+        نام
+        </label>
+        <input name="item_name[]" class="form-control" placeholder="نام" />
+      </div>
+      <div class="col-md-6">
+        <label>
+        مبلغ
+        </label>
+        <input name="item_price[]" class="form-control" placeholder="مبلغ" />
+      </div>
+    </div>    
+    `);
+  }
   $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
@@ -689,6 +1019,8 @@ $entities = [
     @if($theCompany && $theCompany->id)
     $("#modal-company").modal('show');
     @endif
+    $("button.btn-box-tool").click()
+    protocolTypeChanged(document.getElementById('protocol_types_id'));
   });
 </script>
 @endsection
