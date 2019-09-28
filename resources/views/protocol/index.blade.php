@@ -109,10 +109,10 @@
                                     <i class="fas fa-passport"></i>
                                     مستندات
                                   </a>
-                                  <!-- <a class="btn btn-primary" href="/protocols/complement/{{ $protocol->id }}" title="مدارک">
-                                    <i class="fas fa-file-medical"></i>
-                                    متمم
-                                  </a> -->
+                                  <a class="btn btn-primary" href="/protocols/pay/{{ $protocol->id }}" title="مدارک">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    پرداخت
+                                  </a>
                                 </td>
                               </tr>
                             @endforeach

@@ -14,6 +14,7 @@ Route::middleware(['auth', 'view'])->group(function () {
         Route::get('/company/select/{company_id}', 'CompanyController@select');
         Route::get('/company/edit/{company_id}', 'CompanyController@edit');
         Route::post('/company', 'CompanyController@create');
+        Route::any('/pay/{id}', 'ProtocolController@pay');
     });
     
     Route::prefix('/protocoldoc')->group(function () {

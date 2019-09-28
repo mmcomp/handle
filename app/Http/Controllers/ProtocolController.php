@@ -10,8 +10,10 @@ use App\Agent;
 use App\Protocol;
 use App\ProtocolType;
 use App\ProtocolDoc;
+use App\ProtocolPay;
 use App\ProtocolComplement;
 use App\ProtocolListSimple;
+use App\ProtocolListSimplesPay;
 use App\Service;
 use App\ServicesDesc;
 use App\Unit;
@@ -396,5 +398,103 @@ class ProtocolController extends Controller
             return redirect('/protocols');
         }
         return redirect('/protocols/create');
+    }
+
+    public function pay(Request $request, $id) {
+        $protocol = Protocol::find($id);
+        if(!$protocol) {
+            $request->session()->flash('msg_danger', 'قرارداد مورد نظر پیدا نشد');
+            return redirect('/protocols');
+        }
+        $protocol->load('type');
+        if($protocol->type->calc_type=='list_simple') {
+            $protocol->load('list_simples');
+        }
+
+        $user = Auth::getUser();
+        $icons = [
+            "success"=>"check",
+            "danger"=>"ban"
+        ];
+        $msgs = [];
+        $sessions = $request->session()->all();
+        foreach($sessions as $key=>$value) {
+            if(strpos($key, 'msg_')!==false && isset($icons[str_replace('msg_', '', $key)])) {
+                $msgs[] = [
+                    "msg"=>$value,
+                    "type"=>str_replace('msg_', '', $key),
+                    "icon"=>$icons[str_replace('msg_', '', $key)],
+                ];
+            }
+        }
+
+        $data = $protocol->toArray();
+
+        if($request->isMethod('post')) {
+            if($protocol->type->calc_type=='simple') {
+                $total = (int) $request->input('total', 0);
+                if($total<=0) {
+                    $key = 'msg_danger';
+                    $msgs[] = [
+                        "msg"=>'مبلغ وارد شده صحیح نمی باشد',
+                        "type"=>str_replace('msg_', '', $key),
+                        "icon"=>$icons[str_replace('msg_', '', $key)],
+                    ];
+                    return view('protocol.pay', [
+                        "msgs"=>$msgs,
+                        "data"=>$data,
+                    ]);
+                }
+                $protocolPay = new ProtocolPay;
+                $protocolPay->protocols_id = $protocol->id;
+                $protocolPay->amount = $total;
+                $protocolPay->allowed_amount = $total;
+                $protocolPay->status = 'payed';
+                $protocolPay->register_users_id = $user->id;
+                $protocolPay->save();
+                $key = 'msg_success';
+                $msgs[] = [
+                    "msg"=>'ثبت مبلغ با موفقیت انجام شد',
+                    "type"=>str_replace('msg_', '', $key),
+                    "icon"=>$icons[str_replace('msg_', '', $key)],
+                ];
+            }else if($protocol->type->calc_type=='list_simple') {
+                $reqs = $request->all();
+                foreach($reqs as $key=>$value) {
+                    if(strpos($key, 'item_id_')===0 && (int)$value>0) {
+                        $protocol_list_simples_id = (int)(str_replace('item_id_', '', $key));
+                        if($protocol_list_simples_id>0) {
+                            $item_count = (int)$value;
+                            $item_price = 0;
+                            foreach($protocol->list_simples as $item) {
+                                if($item->id == $protocol_list_simples_id) {
+                                    $item_price = $item->item_price;
+                                }
+                            }
+                            if($item_price>0) {
+                                $prtocolListSimplePay = new ProtocolListSimplesPay;
+                                $prtocolListSimplePay->protocols_id = $protocol->id;
+                                $prtocolListSimplePay->protocol_list_simples_id = $protocol_list_simples_id;
+                                $prtocolListSimplePay->item_count = $item_count;
+                                $prtocolListSimplePay->item_price = $item_price;
+                                $prtocolListSimplePay->register_users_id = $user->id;
+                                $prtocolListSimplePay->save();
+                            }
+                        }
+                    }
+                }
+                $key = 'msg_success';
+                $msgs[] = [
+                    "msg"=>'ثبت لیست با موفقیت انجام شد',
+                    "type"=>str_replace('msg_', '', $key),
+                    "icon"=>$icons[str_replace('msg_', '', $key)],
+                ];
+            }
+        }
+
+        return view('protocol.pay', [
+            "msgs"=>$msgs,
+            "data"=>$data,
+        ]);
     }
 }
